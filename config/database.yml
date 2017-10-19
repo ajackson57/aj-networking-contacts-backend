@@ -1,4 +1,4 @@
-<% project_name = 'heroku-practice' %>
+<% project_name = 'network-contact' %>
 
 default: &default
   adapter: postgresql
