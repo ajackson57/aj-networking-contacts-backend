@@ -3,8 +3,8 @@ class ContactsController < ProtectedController
 
   # GET /contacts
   def index
-    @contacts = Contact.all
-
+    # @contacts = Contact.all
+    @contacts = current_user.contacts.all
     render json: @contacts
   end
 
@@ -46,6 +46,11 @@ class ContactsController < ProtectedController
 
     # Only allow a trusted parameter "white list" through.
     def contact_params
-      params.require(:contact).permit(:first_name, :last_name, :email, :company, :position)
+      params.require(:contact).permit(:first_name,
+                                      :last_name,
+                                      :email,
+                                      :company,
+                                      :position,
+                                      :user_id)
     end
 end
