@@ -9,8 +9,8 @@ Test scripts can be found in the project scripts folder.
 ## Instructions
 - [Backend Server hosted on Heroku](https://gentle-crag-17128.herokuapp.com/)
 - [Get application frontend Started](https://ajackson57.github.io/aj-networking-contacts-frontend/)
-- As a user ypu must register for an account. Once an account is created you
-  login and you can display, create, edit, and delete contacts.
+- As a user you must register for an account. Once an account is created you
+  login and can display, create, edit, and delete contacts.
 
 ## Technologies used.
 - **Styling** - The Boostrap NAV bar and basic styling were used.
@@ -35,6 +35,7 @@ Test scripts can be found in the project scripts folder.
        operations.
      - addUserReference - Add reference, 1-to-Many from user to contacts.
      - updateDoument - Update project readme file.
+     - addLog - add support for communication logs
  - **Problem-Solving Strategy**
  - Testing and debugging of the web werver was through curl scripts and frontend
    api calls.
