@@ -3,7 +3,8 @@ class LogsController < ProtectedController
 
   # GET /logs
   def index
-    @logs = Log.all
+    @logs = current_user.logs
+    # @logs = Log.all
 
     render json: @logs
   end
@@ -15,7 +16,8 @@ class LogsController < ProtectedController
 
   # POST /logs
   def create
-    @log = Log.new(log_params)
+    # @log = Log.new(log_params)
+    @log = current_user.logs.build(log_params)
 
     if @log.save
       render json: @log, status: :created, location: @log
@@ -36,12 +38,15 @@ class LogsController < ProtectedController
   # DELETE /logs/1
   def destroy
     @log.destroy
+
+    head :no_content
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_log
-      @log = Log.find(params[:id])
+      @log = current_user.logs.find(params[:id])
+      # @log = Log.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

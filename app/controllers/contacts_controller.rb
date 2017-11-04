@@ -4,7 +4,7 @@ class ContactsController < ProtectedController
   # GET /contacts
   def index
     # @contacts = Contact.all
-    @contacts = current_user.contacts.all
+    @contacts = current_user.contacts
     render json: @contacts
   end
 
@@ -15,12 +15,16 @@ class ContactsController < ProtectedController
 
   # POST /contacts
   def create
-    @contact = Contact.new(contact_params)
+    @contact = current_user.contacts.build(contact_params)
 
-    if @contact.save
-      render json: @contact, status: :created, location: @contact
+    if @contact.valid?
+      if @contact.save
+        render json: @contact, status: :created, location: @contact
+      else
+        render json: @contact.errors, status: :unprocessable_entity
+      end
     else
-      render json: @contact.errors, status: :unprocessable_entity
+      render json: { message: 'blank conatct inforamtion', errors: @contact.errors }, status: :bad_request
     end
   end
 
@@ -36,12 +40,14 @@ class ContactsController < ProtectedController
   # DELETE /contacts/1
   def destroy
     @contact.destroy
+
+    head :no_content
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
-      @contact = Contact.find(params[:id])
+      @contact = current_user.contacts.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
@@ -50,7 +56,6 @@ class ContactsController < ProtectedController
                                       :last_name,
                                       :email,
                                       :company,
-                                      :position,
-                                      :user_id)
+                                      :position)
     end
 end
